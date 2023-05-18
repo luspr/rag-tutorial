@@ -11,7 +11,7 @@ Chatting with scientific papers (in PDF format).
 
 ## API Key
 
-Copy your OpenAI API key in a file api.key.
+Copy your OpenAI API key in a file `api.key`.
 
 # Run the Script
 
