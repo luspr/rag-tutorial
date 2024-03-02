@@ -94,7 +94,8 @@ def prompt_per_page(relevant_pages: Dict[str, List[DocumentPage]], query: str):
                     fp.write(f'## {document_name}\npage: {page.pagenumber}\n')
                     print(f'## {document_name}\npage: {page.pagenumber}\n')
                     fp.write(response)
-                    print(response)
+                    print(25 * '=')
+                    print("Answer:\n", response)
                     print(25 * '=')
                     fp.write('\n')
                     fp.flush()
@@ -102,19 +103,21 @@ def prompt_per_page(relevant_pages: Dict[str, List[DocumentPage]], query: str):
 
 def main():
     parser = argparse.ArgumentParser(description='Process some input.')
-    parser.add_argument('-i', '--input_path', type=str, help='input file path', default='test_data')
-    parser.add_argument('--ask', type=str, help='query string parameter', dest='question')
+    parser.add_argument('-i', '--input_path', type=str, help='input file path', default='polymers')
     parser.add_argument('-k', '--top-k', default=5, type=int, help='number of top hits to search for answer')
 
     args = parser.parse_args()
     corpus = EmbeddingStore(args.input_path)#'data/val/*pdf')
-    if args.question:
-        print("Obtaining embeddings")
+
+    question = input("Ask me anything about your scientific papers.\n")
+    if question:
+        print("\nFinding Answer...")
+        print("1. Obtaining embeddings")
         page_embeddings = corpus.get_embeddings()
 
         relevant_pages = []
-        print("Ranking documents")
-        indices_and_distances = rank_embeddings(page_embeddings, args.question)
+        print("2. Ranking documents")
+        indices_and_distances = rank_embeddings(page_embeddings, question)
         indices = [i for i, _ in indices_and_distances]
         ranked_embeddings = [page_embeddings[i] for i in indices[:args.top_k]]
         relevant_pages = {}
@@ -122,8 +125,8 @@ def main():
             if e.document_name not in relevant_pages:
                 relevant_pages[e.document_name] = []
             relevant_pages[e.document_name].append(DocumentPage(e.page_number + 1, text = corpus.pdf_map[e.document_name][e.page_number].get_text()))
-        query = args.question
-        print("running queries...")
+        query = question
+        print("3. Running queries...")
         prompt_per_page(relevant_pages, query)
 
 

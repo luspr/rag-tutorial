@@ -24,12 +24,6 @@ OPENAI_API_KEY="<YOUR-KEY>"
 
 Run the arxivbot from the command line. For help: `python arxivbot.py --help`.
 
-Example:
-```
-python arxivbot.py --ask "What is the cure time of DA 409 as recommended by the manufacturer?" -i polymers\
-
-```
-
 
 # Data
 The test data are freely available scientific papers about polymers.
