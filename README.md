@@ -7,4 +7,4 @@ An implementation of a RAG-powered chatbot from scratch, just using openai API a
 
 ## Advanced RAG
 
-Talk of mine on advanced rag concepts. From Text splitting to evaluating RAG systems and building autonomous AI agents. 
+Talk of mine on advanced rag concepts and techniques. From Text splitting to evaluating RAG systems and building autonomous AI agents. 
